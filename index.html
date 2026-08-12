@@ -4,14 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>빛으로 적다</title>
+<meta name="theme-color" content="#1A1815">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="빛으로 적다">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #1a1815;
-    --panel: #232019;
-    --line: #38332a;
-    --text: #ddd6c8;
-    --dim: #8f887a;
-    --accent: #c9a05a;
+    --bg: #1A1815;          /* Darkroom Black */
+    --panel: #24221F;       /* Icon Matte Black */
+    --line: rgba(238,236,230,0.10);
+    --line-strong: rgba(238,236,230,0.18);
+    --text: #E7E6E2;        /* Neutral Photo Light */
+    --ivory: #EEE9DF;       /* Faded Film Ivory */
+    --wordmark: #EEECE6;    /* Wordmark Ivory */
+    --dim: #8F887A;         /* Muted Caption */
+    --accent: #C9A05A;      /* UI Accent */
+    --serif-ko: "AppleMyungjo", "Apple Myungjo", "Nanum Myeongjo", serif;
+    --serif-en: "Cormorant Garamond", Cormorant, Garamond, "Times New Roman", serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -22,14 +37,32 @@
   }
   .wrap { max-width: 1140px; margin: 0 auto; padding: 26px 16px 80px; }
 
-  header { margin-bottom: 22px; }
+  header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  header .mark {
+    width: 52px; height: 52px; flex-shrink: 0;
+    border: 1px solid var(--line);
+    display: block;
+  }
   header h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 26px; font-weight: 500; letter-spacing: 0.02em;
+    font-family: var(--serif-ko);
+    font-size: 25px; font-weight: 400; letter-spacing: 0.01em;
+    color: var(--wordmark); line-height: 1.2;
   }
   header .en {
-    font-family: Georgia, serif; font-style: italic;
-    font-size: 13px; color: var(--dim); margin-top: 4px; letter-spacing: 0.12em;
+    font-family: var(--serif-en);
+    font-size: 11.5px; font-weight: 500; color: var(--dim);
+    margin-top: 6px; letter-spacing: 0.24em;
+  }
+  @media (max-width: 560px) {
+    header { gap: 13px; }
+    header .mark { width: 42px; height: 42px; }
+    header h1 { font-size: 21px; }
+    header .en { font-size: 10px; letter-spacing: 0.2em; margin-top: 4px; }
   }
 
   .layout { display: flex; gap: 20px; align-items: flex-start; }
@@ -58,19 +91,24 @@
   .empty b { color: var(--text); font-weight: 500; }
   .stage-btns { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
   button, label.filebtn {
-    background: #2d2921; color: var(--text);
-    border: 1px solid var(--line); border-radius: 7px;
+    background: transparent; color: var(--text);
+    border: 1px solid var(--line-strong); border-radius: 7px;
     padding: 9px 15px; font-size: 13px; cursor: pointer;
-    font-family: inherit;
+    font-family: inherit; transition: border-color 0.15s, color 0.15s;
   }
-  button:hover, label.filebtn:hover { border-color: var(--accent); }
-  button.primary { background: var(--accent); color: #1c1a15; border-color: var(--accent); font-weight: 600; }
-  button:disabled { opacity: 0.5; cursor: default; }
+  button:hover:not(:disabled), label.filebtn:hover { border-color: var(--accent); color: var(--ivory); }
+  button.primary { background: var(--accent); color: #1C1A15; border-color: var(--accent); font-weight: 600; }
+  button.primary:hover:not(:disabled) { color: #1C1A15; }
+  button:disabled { opacity: 0.4; cursor: default; }
   input[type="file"] { display: none; }
   .note { margin-top: 10px; font-size: 11.5px; color: var(--dim); line-height: 1.7; }
 
   .side { width: 300px; flex-shrink: 0; }
-  .sec-title { font-size: 11px; letter-spacing: 0.1em; color: var(--dim); margin: 0 0 8px 2px; }
+  .sec-title {
+    font-family: var(--serif-en);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.22em;
+    color: var(--dim); margin: 0 0 9px 2px;
+  }
   .presets { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
   .preset {
     position: relative;
@@ -88,6 +126,12 @@
   .save-preset { width: 100%; margin-bottom: 16px; }
 
   .controls { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .grp { margin-bottom: 6px; }
+  .grp + .grp { border-top: 1px solid var(--line); padding-top: 13px; margin-top: 13px; }
+  .grp-label {
+    font-size: 11.5px; color: var(--dim); letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
   .ctl { margin-bottom: 11px; }
   .ctl label { display: flex; justify-content: space-between; font-size: 12px; color: var(--dim); margin-bottom: 4px; }
   .ctl label b { color: var(--text); font-weight: 500; }
@@ -101,14 +145,22 @@
   }
   .toggle-row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 8px; }
   .toggle-row input { accent-color: var(--accent); width: 16px; height: 16px; }
-  footer { margin-top: 26px; font-size: 11px; color: var(--dim); letter-spacing: 0.06em; }
+  .toggle-row label { cursor: pointer; }
+  footer {
+    margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-family: var(--serif-en);
+    font-size: 10.5px; color: var(--dim); letter-spacing: 0.22em;
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>빛으로 적다</h1>
-    <div class="en">WRITTEN IN LIGHT</div>
+    <img class="mark" src="icons/icon-256.png" alt="빛으로 적다">
+    <div>
+      <h1>빛으로 적다</h1>
+      <div class="en">WRITTEN IN LIGHT</div>
+    </div>
   </header>
 
   <div class="layout">
@@ -139,7 +191,7 @@
     </div>
   </div>
 
-  <footer>WRITTEN IN LIGHT -- 빛으로 적다. 필름 톤 라이브러리.</footer>
+  <footer>WRITTEN IN LIGHT</footer>
 </div>
 
 <script>
@@ -150,23 +202,30 @@ let original = null;         // 원본 이미지
 const PREVIEW_MAXW = 1500;
 
 // ---------- 파라미터 ----------
-const PARAMS = [
-  { key:'exp',      name:'노출',            min:-20, max:40 },
-  { key:'bloom',    name:'빛번짐',          min:0,   max:100 },
-  { key:'bloomWarm',name:'빛번짐 색',       min:0,   max:100 },
-  { key:'goldHi',   name:'금빛 하이라이트', min:0,   max:30 },
-  { key:'shTint',   name:'그늘 온도',       min:-15, max:15 },
-  { key:'fade',     name:'바랜 정도',       min:0,   max:100 },
-  { key:'contrast', name:'대비',            min:-50, max:30 },
-  { key:'sat',      name:'채도',            min:30,  max:120 },
-  { key:'emph',     name:'색 강조',         min:0,   max:100 },
-  { key:'warm',     name:'색온도',          min:-25, max:25 },
-  { key:'cyan',     name:'청량함',          min:0,   max:25 },
-  { key:'cam',      name:'캠코더',          min:0,   max:100 },
-  { key:'soft',     name:'소프트',          min:0,   max:100 },
-  { key:'grain',    name:'그레인',          min:0,   max:100 },
-  { key:'vig',      name:'비네트',          min:0,   max:100 },
+const PARAM_GROUPS = [
+  { label: '빛과 톤', items: [
+    { key:'exp',      name:'노출',            min:-20, max:40 },
+    { key:'contrast', name:'대비',            min:-50, max:30 },
+    { key:'fade',     name:'바랜 정도',       min:0,   max:100 },
+    { key:'bloom',    name:'빛번짐',          min:0,   max:100 },
+    { key:'bloomWarm',name:'빛번짐 색',       min:0,   max:100 },
+    { key:'goldHi',   name:'금빛 하이라이트', min:0,   max:30 },
+  ]},
+  { label: '색', items: [
+    { key:'sat',      name:'채도',            min:30,  max:120 },
+    { key:'emph',     name:'색 강조',         min:0,   max:100 },
+    { key:'warm',     name:'색온도',          min:-25, max:25 },
+    { key:'cyan',     name:'청량함',          min:0,   max:25 },
+    { key:'shTint',   name:'그늘 온도',       min:-15, max:15 },
+  ]},
+  { label: '질감', items: [
+    { key:'cam',      name:'캠코더',          min:0,   max:100 },
+    { key:'soft',     name:'소프트',          min:0,   max:100 },
+    { key:'grain',    name:'그레인',          min:0,   max:100 },
+    { key:'vig',      name:'비네트',          min:0,   max:100 },
+  ]},
 ];
+const PARAMS = PARAM_GROUPS.reduce((all, g) => all.concat(g.items), []);
 
 const BUILTIN = {
   '01 여름 낮': { desc:'빛 과다, 투명하고 청량한 디카', v:{exp:16, bloom:46, bloomWarm:0, goldHi:0, shTint:0, fade:14, contrast:-18, sat:84, emph:0, warm:-5, cyan:9, cam:42, soft:20, grain:8, vig:4, stamp:false, bw:false} },
@@ -244,28 +303,35 @@ document.getElementById('savePreset').addEventListener('click', () => {
 
 // ---------- 슬라이더/토글 UI ----------
 const ctlBox = document.getElementById('controls');
-PARAMS.forEach(p => {
-  const d = document.createElement('div');
-  d.className = 'ctl';
-  d.innerHTML = '<label><b>' + p.name + '</b><span id="val_' + p.key + '"></span></label>' +
-    '<input type="range" id="rg_' + p.key + '" min="' + p.min + '" max="' + p.max + '" value="0">';
-  ctlBox.appendChild(d);
-  d.querySelector('input').addEventListener('input', e => {
-    state[p.key] = +e.target.value;
-    document.getElementById('val_' + p.key).textContent = e.target.value;
-    clearActive();
-    requestRender();
+PARAM_GROUPS.forEach(group => {
+  const gEl = document.createElement('div');
+  gEl.className = 'grp';
+  const gLabel = document.createElement('div');
+  gLabel.className = 'grp-label';
+  gLabel.textContent = group.label;
+  gEl.appendChild(gLabel);
+  group.items.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'ctl';
+    d.innerHTML = '<label><b>' + p.name + '</b><span id="val_' + p.key + '"></span></label>' +
+      '<input type="range" id="rg_' + p.key + '" min="' + p.min + '" max="' + p.max + '" value="0">';
+    gEl.appendChild(d);
+    d.querySelector('input').addEventListener('input', e => {
+      state[p.key] = +e.target.value;
+      document.getElementById('val_' + p.key).textContent = e.target.value;
+      clearActive();
+      requestRender();
+    });
   });
+  ctlBox.appendChild(gEl);
 });
-const bwRow = document.createElement('div');
-bwRow.className = 'toggle-row';
-bwRow.innerHTML = '<input type="checkbox" id="bw"><label for="bw">흑백</label>';
-ctlBox.appendChild(bwRow);
+const toggleGrp = document.createElement('div');
+toggleGrp.className = 'grp';
+toggleGrp.innerHTML = '<div class="grp-label">마무리</div>' +
+  '<div class="toggle-row"><input type="checkbox" id="bw"><label for="bw">흑백</label></div>' +
+  '<div class="toggle-row"><input type="checkbox" id="stamp"><label for="stamp">날짜 스탬프</label></div>';
+ctlBox.appendChild(toggleGrp);
 document.getElementById('bw').addEventListener('change', e => { state.bw = e.target.checked; requestRender(); });
-const stampRow = document.createElement('div');
-stampRow.className = 'toggle-row';
-stampRow.innerHTML = '<input type="checkbox" id="stamp"><label for="stamp">날짜 스탬프</label>';
-ctlBox.appendChild(stampRow);
 document.getElementById('stamp').addEventListener('change', e => { state.stamp = e.target.checked; requestRender(); });
 
 function syncControls() {
