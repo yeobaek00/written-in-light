@@ -79,12 +79,17 @@
     border-radius: 12px;
     padding: 14px;
   }
-  /* 화면 전체 필름 그레인. 사진 영역보다 아래에 깔려 사진 판단을 방해하지 않음 */
+  /* 한지 질감. 잔 입자 + 가로/세로 닥섬유 결 + 종이 두께 얼룩.
+     사진 영역보다 아래에 깔려 사진 판단을 방해하지 않음 */
   .grain {
     position: fixed; inset: 0; pointer-events: none; z-index: 50;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    opacity: 0.19;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.35 0 0 0 0 0.31 0 0 0 0 0.25 0.4 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.34 0 0 0 0 0.30 0 0 0 0 0.24 0.55 0 0 0 -0.14'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6 0.02' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.34 0 0 0 0 0.30 0 0 0 0 0.24 0.16 0 0 0 -0.06'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.36 0 0 0 0 0.32 0 0 0 0 0.26 0.3 0 0 0 -0.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3C/svg%3E");
+    background-size: 180px 180px, 320px 320px, 320px 320px, 620px 620px;
+    opacity: 0.42;
   }
   /* 사진 영역은 불투명하게 채워 질감이 비치지 않게 함 (빈 상태 포함) */
   .canvas-holder {
@@ -225,7 +230,7 @@
     </div>
   </div>
 
-  <footer>WRITTEN IN LIGHT <span class="ver">2026.08.13 &middot; 06</span></footer>
+  <footer>WRITTEN IN LIGHT <span class="ver">2026.08.13 &middot; 07</span></footer>
 </div>
 
 <script>
