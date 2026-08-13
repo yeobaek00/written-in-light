@@ -82,16 +82,16 @@
   /* 화면 전체 필름 그레인. 사진 영역보다 아래에 깔려 사진 판단을 방해하지 않음 */
   .grain {
     position: fixed; inset: 0; pointer-events: none; z-index: 50;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
-    background-size: 108px 108px, 820px 820px;
-    opacity: 0.22;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-size: 108px 108px;
+    opacity: 0.11;
   }
+  /* 사진 영역은 불투명하게 채워 질감이 비치지 않게 함 (빈 상태 포함) */
   .canvas-holder {
     position: relative; width: 100%;
     min-height: 220px;
     z-index: 60;
+    background: var(--panel); border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
   }
   canvas { display: block; width: 100%; height: auto; border-radius: 8px; background: rgba(26,24,21,0.05); }
