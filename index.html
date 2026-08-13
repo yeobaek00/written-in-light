@@ -83,8 +83,8 @@
   .grain {
     position: fixed; inset: 0; pointer-events: none; z-index: 50;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-    background-size: 108px 108px;
-    opacity: 0.11;
+    background-size: 180px 180px;
+    opacity: 0.19;
   }
   /* 사진 영역은 불투명하게 채워 질감이 비치지 않게 함 (빈 상태 포함) */
   .canvas-holder {
@@ -180,6 +180,7 @@
     font-family: var(--serif-en);
     font-size: 10.5px; color: var(--dim); letter-spacing: 0.22em;
   }
+  footer .ver { opacity: 0.55; margin-left: 10px; }
 </style>
 </head>
 <body>
@@ -224,7 +225,7 @@
     </div>
   </div>
 
-  <footer>WRITTEN IN LIGHT</footer>
+  <footer>WRITTEN IN LIGHT <span class="ver">2026.08.13 &middot; 06</span></footer>
 </div>
 
 <script>
